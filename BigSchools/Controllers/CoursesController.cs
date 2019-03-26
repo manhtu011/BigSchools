@@ -31,15 +31,20 @@ namespace BigSchools.Controllers
         }
         [Authorize]
         [HttpPost]
-        public ActionResult Create(CoursesController viewModel)
+        public ActionResult Create(CourseViewModel viewModel)
         {
             var course = new Course
             {
                 LecturerId = User.Identity.GetUserId(),
                 DataTime = viewModel.GetDateTime(),
                 CategoryId = viewModel.Category,
+                Place = viewModel.Place
 
-            }
+            };
+            _dbContext.Courses.Add(course);
+            _dbContext.SaveChanges();
+                
+            return RedirectToAction("Index", "Home");
         }
     }
 }
