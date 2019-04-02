@@ -58,6 +58,7 @@ namespace BigSchools.Controllers
         [Authorize]
         public ActionResult Attending()
         {
+            
             var userId = User.Identity.GetUserId();
 
             var courses = _dbContext.Attendances

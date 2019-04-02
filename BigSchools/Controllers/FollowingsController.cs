@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace BigSchools.Controllers
 {
@@ -20,10 +21,14 @@ namespace BigSchools.Controllers
         }
         [HttpPost]
         public IHttpActionResult Follow(FollowingDto followingDto)
+
         {
             var userId = User.Identity.GetUserId();
             if (_dbContext.Followings.Any(f => f.FollowerId == userId && f.FolloweeId == followingDto.FolloweeId))
+            {
                 return BadRequest("Following already Exitsts!");
+            }
+                
             var folowing = new Following
             {
                 FollowerId = userId,
